@@ -1,6 +1,6 @@
 # Digitalocean API Graphql Example
 
-A relay based application to play around with graphql
+A relay based application to play around with graphql. For testing out https://github.com/halkeye/digitalocean-graphql-api
 
 ## Getting Started
 
