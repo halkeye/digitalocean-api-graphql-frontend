@@ -1,9 +1,10 @@
 import * as React from "react";
 import RelayEnvironment from "../relay/RelayEnvironment";
-import ProjectsList from "./ProjectsList";
 import { graphql } from 'relay-runtime';
 import { useLazyLoadQuery, useFragment, usePaginationFragment } from "react-relay";
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
+import GithubCorner from 'react-github-corner';
+import ProjectsList from "./ProjectsList";
 import LoadingSpinner from "./LoadingSpinner";
 // import type {AppQuery as AppQueryType, App_projects, App_projects$key} from './__generated__/AppQuery.graphql';
 
@@ -59,6 +60,7 @@ export default function AppRoot() {
   return (
     <RelayEnvironmentProvider environment={RelayEnvironment}>
       <React.Suspense fallback={'Loading...'}>
+        <GithubCorner href="https://github.com/halkeye/digitalocean-api-graphql-frontend" />
         <App />
       </React.Suspense>
     </RelayEnvironmentProvider>
