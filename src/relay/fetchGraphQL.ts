@@ -1,13 +1,13 @@
 
 async function fetchGraphQL(text, variables) {
   let bearerToken = localStorage.getItem('do-bearer-token');
-  if (!bearerToken) {
+  if (!bearerToken || bearerToken === 'null') {
     bearerToken = prompt("Your bearer token");
   }
   localStorage.setItem('do-bearer-token', bearerToken);
 
   // Fetch data from GitHub's GraphQL API:
-  const response = await fetch('/query', {
+  const response = await fetch(process.env.GRAPHQL_SERVER || '/query', {
     method: 'POST',
     headers: {
       Authorization: `bearer ${bearerToken}`,
@@ -22,11 +22,11 @@ async function fetchGraphQL(text, variables) {
   // Get the response as JSON
   const body = await response.json();
   if (body.errors) {
-    const err = new Error(body.errors.map(err => err.message).join(", "))
-    console.error("GraphQL Errors", err)
+    const err = new Error(body.errors.map(err => err.message).join(", "));
+    console.error("GraphQL Errors", err);
     throw err;
   }
   return body;
 }
 
-export default fetchGraphQL
+export default fetchGraphQL;

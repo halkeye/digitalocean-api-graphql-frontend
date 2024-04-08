@@ -38,6 +38,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js", ".css"],
   },
   plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG', 'GRAPHQL_SERVER']),
     new HtmlWebpackPlugin(),
     new MiniCssExtractPlugin(),
     new CopyPlugin({
