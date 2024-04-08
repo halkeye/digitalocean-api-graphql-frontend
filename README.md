@@ -1,6 +1,6 @@
-# Newsfeed Application Example
+# Digitalocean API Graphql Example
 
-The Relay application is designed to be used in conjunction with the Relay documentation to demonstrate the APIs, concepts, and principles of Relay and their use in building Relay applications.
+A relay based application to play around with graphql
 
 ## Getting Started
 
