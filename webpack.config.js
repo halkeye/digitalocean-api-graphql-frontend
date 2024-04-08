@@ -1,4 +1,5 @@
 const path = require("path");
+const {EnvironmentPlugin} = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
@@ -38,7 +39,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js", ".css"],
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG', 'GRAPHQL_SERVER']),
+    new EnvironmentPlugin(['NODE_ENV', 'DEBUG', 'GRAPHQL_SERVER']),
     new HtmlWebpackPlugin(),
     new MiniCssExtractPlugin(),
     new CopyPlugin({
