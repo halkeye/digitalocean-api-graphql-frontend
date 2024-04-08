@@ -1,0 +1,161 @@
+"Time"
+scalar Time
+"UUID"
+scalar UUID
+"Account Information"
+type Account implements Node {
+  "Email address"
+  email: String!
+  "Has email been verified"
+  emailVerified: Boolean!
+  "The id of the account"
+  id: ID!
+  "Account Status"
+  status: String!
+  "Account UUID"
+  uuid: String!
+}
+"Account Limits"
+type AccountLimits {
+  "How many droplets can you have at once"
+  dropletLimit: Int!
+  "How many volumes can you have at once"
+  volumeLimit: Int!
+}
+type App implements Node {
+  id: ID!
+  owner: Team!
+  lastDeploymentActiveAt: Time
+  defaultIngress: String
+  createdAt: Time
+  updatedAt: Time
+}
+type Domain implements Node {
+  id: ID!
+  name: String!
+  TTL: Int!
+  ZoneFile: String
+}
+type Droplet implements Node {
+  id: ID!
+  name: String!
+  memory: Int
+  vcpus: Int
+  disk: Int
+  region: Region
+  sizeSlug: String
+  backupIDs: [Int!]!
+}
+"Information about pagination in a connection."
+type PageInfo {
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+  "When paginating forwards, are there more items?"
+  hasNextPage: Boolean!
+  "When paginating backwards, are there more items?"
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+}
+"Projects allow you to organize your resources into groups that fit the way you work. You can group resources (like Droplets, Spaces, load balancers, domains, and floating IPs) in ways that align with the applications you host on DigitalOcean."
+type Project implements Node {
+  "The id of the account"
+  id: ID!
+  owner: Team!
+  name: String!
+  description: String
+  purpose: String!
+  environment: String!
+  isDefault: Boolean!
+  createdAt: Time
+  updatedAt: Time
+  "All projects"
+  resources(
+    "Page Size"
+    first: Int = 20,
+    "Cursor ID"
+    after: ID
+  ): ProjectResourcesConnection
+}
+type ProjectResource {
+  id: ID!
+  assignedAt: Time!
+  resource: Resource
+  status: String!
+}
+"ProjectResources Connection"
+type ProjectResourcesConnection {
+  "Edges"
+  edges: [ProjectResourcesEdge!]!
+  "Pagination info"
+  pageInfo: PageInfo!
+}
+"ProjectResources Edge"
+type ProjectResourcesEdge {
+  "Cursor"
+  cursor: ID!
+  "Project Node"
+  node: ProjectResource
+}
+"Projects Connection"
+type ProjectsConnection {
+  "Edges"
+  edges: [ProjectsEdge!]!
+  "Pagination info"
+  pageInfo: PageInfo!
+}
+"Project Edge"
+type ProjectsEdge {
+  "Cursor"
+  cursor: ID!
+  "Project Resource Node"
+  node: Project
+}
+"All the queries"
+type Query {
+  "Get node"
+  node(
+    "ID of Node"
+    id: ID!
+  ): Node
+  "All projects"
+  projects(
+    "Page Size"
+    first: Int = 20,
+    "Cursor ID"
+    after: String
+  ): ProjectsConnection
+}
+type Region implements Node {
+  id: ID!
+  name: String!
+  sizes: [String!]!
+  available: Boolean
+  features: [String!]!
+}
+"Team information"
+type Team implements Node {
+  "The id of the team"
+  id: ID!
+  "What is the teams limits"
+  limits: AccountLimits
+  "Team UUID"
+  uuid: UUID!
+}
+type Volume implements Node {
+  id: ID!
+}
+"An object with an ID"
+interface Node {
+  "The id of the object."
+  id: ID!
+}
+union Resource = Droplet | App | Domain | Volume
+"The @defer directive may be specified on a fragment spread to imply de-prioritization, that causes the fragment to be omitted in the initial response, and delivered as a subsequent response afterward. A query with @defer directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred delivered in a subsequent response. @include and @skip take precedence over @defer."
+directive @defer(if: Boolean = true, label: String) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+directive @goField(forceResolver: Boolean, name: String, omittable: Boolean) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+directive @goModel(model: String, models: [String!], forceGenerate: Boolean) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+directive @goTag(key: String!, value: String) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+"The @specifiedBy built-in directive is used within the type system definition language to provide a scalar specification URL for specifying the behavior of custom scalar types."
+directive @specifiedBy(url: String!) on SCALAR
+
