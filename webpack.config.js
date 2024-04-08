@@ -39,7 +39,11 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js", ".css"],
   },
   plugins: [
-    new EnvironmentPlugin(['NODE_ENV', 'DEBUG', 'GRAPHQL_SERVER']),
+    new EnvironmentPlugin({
+      'NODE_ENV': 'development',
+      'DEBUG': 'false',
+      'GRAPHQL_SERVER': '/query'
+    }),
     new HtmlWebpackPlugin(),
     new MiniCssExtractPlugin(),
     new CopyPlugin({
