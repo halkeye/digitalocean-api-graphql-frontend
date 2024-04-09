@@ -6,6 +6,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
 import type {ProjectsListQuery as ProjectsListQueryType} from './__generated__/ProjectsListQuery.graphql'
 import type {ProjectsListFragment$key} from './__generated__/ProjectsListFragment.graphql';
+import Button from "./Button";
 
 // https://relay.dev/docs/api-reference/use-pagination-fragment/
 //
@@ -58,9 +59,9 @@ export default function ProjectsList() {
     <div className="w-full">
       <div className="grid grid-cols-3 gap-4">
         {(isLoadingNext || isLoadingPrevious) && <LoadingSpinner />}
-        {hasNext && <div><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => loadNext(3)}>Load more projects</button></div>}
-        <div><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => refetch({})}>Refresh</button></div>
-        {hasPrevious && <div><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => loadPrevious(3)}>Load previous projects</button></div>}
+        {hasNext && <div><Button onClick={() => loadNext(3)}>Load more projects</Button></div>}
+        <div><Button onClick={() => refetch({})}>Refresh</Button></div>
+        {hasPrevious && <div><Button onClick={() => loadPrevious(3)}>Load previous projects</Button></div>}
       </div>
       <div className="grid grid-cols-3 gap-4">
         {data.projects.edges.map(({ node: project}) => (
