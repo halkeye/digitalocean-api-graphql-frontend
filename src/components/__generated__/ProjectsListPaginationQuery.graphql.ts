@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<257d91f0d3b87638e00a576339d5fdd1>>
+ * @generated SignedSource<<aaf657d1f2d17a41f21a404e3373ca4d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,24 +10,44 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProjectsListQuery$variables = Record<PropertyKey, never>;
-export type ProjectsListQuery$data = {
+export type ProjectsListPaginationQuery$variables = {
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+};
+export type ProjectsListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"ProjectsListFragment">;
 };
-export type ProjectsListQuery = {
-  response: ProjectsListQuery$data;
-  variables: ProjectsListQuery$variables;
+export type ProjectsListPaginationQuery = {
+  response: ProjectsListPaginationQuery$data;
+  variables: ProjectsListPaginationQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "Literal",
-    "name": "first",
-    "value": 3
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "after"
+  },
+  {
+    "defaultValue": 3,
+    "kind": "LocalArgument",
+    "name": "first"
   }
 ],
-v1 = {
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "after",
+    "variableName": "after"
+  },
+  {
+    "kind": "Variable",
+    "name": "first",
+    "variableName": "first"
+  }
+],
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -36,13 +56,13 @@ v1 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ProjectsListQuery",
+    "name": "ProjectsListPaginationQuery",
     "selections": [
       {
-        "args": null,
+        "args": (v1/*: any*/),
         "kind": "FragmentSpread",
         "name": "ProjectsListFragment"
       }
@@ -52,13 +72,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ProjectsListQuery",
+    "name": "ProjectsListPaginationQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "ProjectsConnection",
         "kind": "LinkedField",
         "name": "projects",
@@ -119,7 +139,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -135,7 +155,7 @@ return {
                         "name": "uuid",
                         "storageKey": null
                       },
-                      (v1/*: any*/)
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -174,11 +194,11 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "projects(first:3)"
+        "storageKey": null
       },
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": (v1/*: any*/),
         "filters": null,
         "handle": "connection",
         "key": "ProjectsList_projects",
@@ -188,16 +208,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "682757a70b13d45700e8b46d1a60a888",
+    "cacheID": "94a2b793b5c6ffb8b05739c975f030a3",
     "id": null,
     "metadata": {},
-    "name": "ProjectsListQuery",
+    "name": "ProjectsListPaginationQuery",
     "operationKind": "query",
-    "text": "query ProjectsListQuery {\n  ...ProjectsListFragment\n}\n\nfragment ProjectFragment on Project {\n  owner {\n    uuid\n    id\n  }\n  name\n  description\n}\n\nfragment ProjectsListFragment on Query {\n  projects(first: 3) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        ...ProjectFragment\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
+    "text": "query ProjectsListPaginationQuery(\n  $after: String = null\n  $first: Int = 3\n) {\n  ...ProjectsListFragment_2HEEH6\n}\n\nfragment ProjectFragment on Project {\n  owner {\n    uuid\n    id\n  }\n  name\n  description\n}\n\nfragment ProjectsListFragment_2HEEH6 on Query {\n  projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        ...ProjectFragment\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f0a6e5e35468472d87deef00ad433d22";
+(node as any).hash = "4b41c1b76c617846d26dc7669cafb42b";
 
 export default node;
