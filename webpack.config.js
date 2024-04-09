@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require('fs');
 const {EnvironmentPlugin} = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -42,7 +43,8 @@ module.exports = {
     new EnvironmentPlugin({
       'NODE_ENV': 'development',
       'DEBUG': 'false',
-      'GRAPHQL_SERVER': '/query'
+      'GRAPHQL_SERVER': '/query',
+      'DO_CLIENT_ID': '0a49c568248edfefb704c11cc3ff255e6cc71a1d00b10631bbe0675eb692976b',
     }),
     new HtmlWebpackPlugin(),
     new MiniCssExtractPlugin(),
@@ -53,6 +55,8 @@ module.exports = {
     }),
   ],
   devServer: {
+    allowedHosts: "all",
+    server: 'https',
     static: [
       {
         directory: path.join(__dirname, "dist"),
