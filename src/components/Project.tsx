@@ -20,7 +20,7 @@ const ProjectFragment = graphql`
 export default function Project({project}: Props) {
   const data = useFragment<ProjectFragment$key>(ProjectFragment, project);
   return (
-    <div className="newsfeed">
+    <div className="h-24 col-span-1 bg-white border border-gray-300">
       <div>Owner: {data.owner.uuid}</div>
       <div>Name: {data.name}</div>
       <div>Description: {data.description}</div>

@@ -3,6 +3,7 @@ import { graphql } from 'relay-runtime';
 import { useLazyLoadQuery, usePaginationFragment } from "react-relay";
 import Project from './Project';
 import LoadingSpinner from "./LoadingSpinner";
+import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
 import type {ProjectsListQuery as ProjectsListQueryType} from './__generated__/ProjectsListQuery.graphql'
 import type {ProjectsListFragment$key} from './__generated__/ProjectsListFragment.graphql';
 
@@ -51,20 +52,27 @@ export default function ProjectsList() {
     isLoadingNext,
     isLoadingPrevious,
     refetch, // For refetching connection
-  } = usePaginationFragment<ProjectsListQueryType, ProjectsListFragment$key>(ProjectsListFragment, queryData); 
+  } = usePaginationFragment<ProjectsListQueryType, ProjectsListFragment$key>(ProjectsListFragment, queryData);
+  const onEndReached = () => loadNext(3);
   return (
-    <div>
-      {isLoadingNext && <LoadingSpinner />}
-      {isLoadingPrevious && <LoadingSpinner />}
-      {hasNext && <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => loadNext(3)}>Load more projects</button>}
-      {hasPrevious && <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => loadPrevious(3)}>Load previous projects</button>}
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => refetch({})}>Refetch</button>
-      <div className="projects">
+    <div className="w-full">
+      <div className="grid grid-cols-3 gap-4">
+        {(isLoadingNext || isLoadingPrevious) && <LoadingSpinner />}
+        {hasNext && <div><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => loadNext(3)}>Load more projects</button></div>}
+        <div><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => refetch({})}>Refresh</button></div>
+        {hasPrevious && <div><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => loadPrevious(3)}>Load previous projects</button></div>}
+      </div>
+      <div className="grid grid-cols-3 gap-4">
         {data.projects.edges.map(({ node: project}) => (
-          <div key={project.id} style={{ borderBottom: '1px solid black' }}>
+          <div className="w-full" key={project.id} style={{ borderBottom: '1px solid black' }}>
             <Project project={project} />
           </div>
         ))}
+        <InfiniteScrollTrigger
+          onEndReached={onEndReached}
+          hasNext={hasNext}
+          isLoadingNext={isLoadingNext}
+        />
       </div>
     </div>
   );

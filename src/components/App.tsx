@@ -45,7 +45,7 @@ function App(): React.ReactElement {
   // )
   // console.log('data', data);
   return (
-    <div className="app">
+    <div className="w-full">
       <ProjectsList />
     </div>
   );
