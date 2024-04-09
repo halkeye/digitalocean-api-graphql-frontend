@@ -56,9 +56,9 @@ export default function ProjectsList() {
     <div>
       {isLoadingNext && <LoadingSpinner />}
       {isLoadingPrevious && <LoadingSpinner />}
-      {hasNext && <button onClick={() => loadNext(3)}>Load more projects</button>}
-      {hasPrevious && <button onClick={() => loadPrevious(3)}>Load previous projects</button>}
-      <button onClick={() => refetch({})}>Refetch</button>
+      {hasNext && <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => loadNext(3)}>Load more projects</button>}
+      {hasPrevious && <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => loadPrevious(3)}>Load previous projects</button>}
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => refetch({})}>Refetch</button>
       <div className="projects">
         {data.projects.edges.map(({ node: project}) => (
           <div key={project.id} style={{ borderBottom: '1px solid black' }}>
