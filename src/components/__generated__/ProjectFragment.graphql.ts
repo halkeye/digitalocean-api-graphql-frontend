@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2fcd3547bc6914182efabbb524250112>>
+ * @generated SignedSource<<a5cfdbc20f5dcd1dd7dc56c0e9e76576>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,11 +11,17 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProjectFragment$data = {
+  readonly createdAt: any | null | undefined;
   readonly description: string | null | undefined;
+  readonly environment: string;
+  readonly isDefault: boolean;
   readonly name: string;
   readonly owner: {
     readonly uuid: any;
   };
+  readonly purpose: string;
+  readonly updatedAt: any | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"ResourcesListFragment">;
   readonly " $fragmentType": "ProjectFragment";
 };
 export type ProjectFragment$key = {
@@ -60,12 +66,52 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "description",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "purpose",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "environment",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "isDefault",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "createdAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "updatedAt",
+      "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ResourcesListFragment"
     }
   ],
   "type": "Project",
   "abstractKey": null
 };
 
-(node as any).hash = "13dce10d094c8d03c6326e3806ff2b1d";
+(node as any).hash = "f8c0537061489edeab8e059db113daa2";
 
 export default node;

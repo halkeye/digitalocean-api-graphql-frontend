@@ -3,7 +3,7 @@ import { graphql } from 'relay-runtime';
 import { useLazyLoadQuery, usePaginationFragment } from "react-relay";
 import Project from './Project';
 import LoadingSpinner from "./LoadingSpinner";
-import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
+// import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
 import type {ProjectsListQuery as ProjectsListQueryType} from './__generated__/ProjectsListQuery.graphql'
 import type {ProjectsListFragment$key} from './__generated__/ProjectsListFragment.graphql';
 import Button from "./Button";
@@ -54,7 +54,7 @@ export default function ProjectsList() {
     isLoadingPrevious,
     refetch, // For refetching connection
   } = usePaginationFragment<ProjectsListQueryType, ProjectsListFragment$key>(ProjectsListFragment, queryData);
-  const onEndReached = () => loadNext(3);
+  // const onEndReached = () => loadNext(3);
   return (
     <div className="w-full">
       <div className="grid grid-cols-3 gap-4">
@@ -69,11 +69,11 @@ export default function ProjectsList() {
             <Project project={project} />
           </div>
         ))}
-        <InfiniteScrollTrigger
+        {/* <InfiniteScrollTrigger
           onEndReached={onEndReached}
           hasNext={hasNext}
           isLoadingNext={isLoadingNext}
-        />
+        /> */}
       </div>
     </div>
   );

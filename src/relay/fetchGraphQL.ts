@@ -31,11 +31,11 @@ async function fetchGraphQL(text: string | null, variables: Variables) {
 
   // Get the response as JSON
   const body = await response.json();
-  if (body.errors) {
-    const err = new Error(body.errors.map(err => err.message).join(", "));
-    console.error("GraphQL Errors", err);
-    throw err;
-  }
+  // if (body.errors) {
+  //   const err = new Error(body.errors.map(err => err.message).join(", "));
+  //   console.error("GraphQL Errors", err);
+  //   throw err;
+  // }
   return body;
 }
 
