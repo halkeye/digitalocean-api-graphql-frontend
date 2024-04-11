@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<31bd0c2012d10e4ebd76e918efb52e49>>
+ * @generated SignedSource<<a8b2f063500dbb06522908a4dee6fb8b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,9 +11,10 @@
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SidebarFragment$data = {
-  readonly projects: {
+  readonly sidebarProjects: {
     readonly edges: ReadonlyArray<{
       readonly node: {
+        readonly id: string;
         readonly name: string;
       } | null | undefined;
     }>;
@@ -33,7 +34,7 @@ export type SidebarFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "projects"
+  "sidebarProjects"
 ];
 return {
   "argumentDefinitions": [
@@ -74,11 +75,11 @@ return {
   "name": "SidebarFragment",
   "selections": [
     {
-      "alias": "projects",
+      "alias": "sidebarProjects",
       "args": null,
       "concreteType": "ProjectsConnection",
       "kind": "LinkedField",
-      "name": "__Sidebar_projects_connection",
+      "name": "__Sidebar__sidebarProjects_connection",
       "plural": false,
       "selections": [
         {
@@ -140,6 +141,13 @@ return {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
+                  "name": "id",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
                   "name": "name",
                   "storageKey": null
                 },
@@ -172,6 +180,6 @@ return {
 };
 })();
 
-(node as any).hash = "cd533cb5607280ce64abeac85c23805b";
+(node as any).hash = "4d6c9707fa28ad060f6a8ac770fa4dca";
 
 export default node;

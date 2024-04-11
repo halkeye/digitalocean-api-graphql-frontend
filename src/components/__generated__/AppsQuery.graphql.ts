@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5d73e32926c15f473da3dfe0c8b6f7ee>>
+ * @generated SignedSource<<54c501d94b52885e7a3a1a2ea3081616>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,7 +24,7 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 25
+    "value": 3
   }
 ],
 v1 = {
@@ -44,31 +44,65 @@ v2 = {
 v3 = {
   "alias": null,
   "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "startCursor",
+      "storageKey": null
+    },
+    (v1/*: any*/),
+    (v2/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasPreviousPage",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 3
-  }
-],
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "name",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "cursor",
   "storageKey": null
-};
+},
+v8 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 25
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -104,33 +138,7 @@ return {
         "name": "projects",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "startCursor",
-                "storageKey": null
-              },
-              (v1/*: any*/),
-              (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "hasPreviousPage",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -147,7 +155,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -163,17 +171,11 @@ return {
                         "name": "uuid",
                         "storageKey": null
                       },
-                      (v3/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "name",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -218,7 +220,7 @@ return {
                   },
                   {
                     "alias": null,
-                    "args": (v4/*: any*/),
+                    "args": (v0/*: any*/),
                     "concreteType": "ProjectResourcesConnection",
                     "kind": "LinkedField",
                     "name": "resources",
@@ -240,8 +242,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v3/*: any*/),
-                              (v5/*: any*/),
+                              (v4/*: any*/),
+                              (v6/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -257,11 +259,11 @@ return {
                                 "name": "resource",
                                 "plural": false,
                                 "selections": [
-                                  (v5/*: any*/),
+                                  (v6/*: any*/),
                                   {
                                     "kind": "InlineFragment",
                                     "selections": [
-                                      (v3/*: any*/)
+                                      (v4/*: any*/)
                                     ],
                                     "type": "Node",
                                     "abstractKey": "__isNode"
@@ -279,7 +281,7 @@ return {
                             ],
                             "storageKey": null
                           },
-                          (v6/*: any*/)
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -301,23 +303,23 @@ return {
                   },
                   {
                     "alias": null,
-                    "args": (v4/*: any*/),
+                    "args": (v0/*: any*/),
                     "filters": null,
                     "handle": "connection",
                     "key": "ResourcesList__resources",
                     "kind": "LinkedHandle",
                     "name": "resources"
                   },
-                  (v5/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v6/*: any*/)
+              (v7/*: any*/)
             ],
             "storageKey": null
           }
         ],
-        "storageKey": "projects(first:25)"
+        "storageKey": "projects(first:3)"
       },
       {
         "alias": null,
@@ -329,23 +331,61 @@ return {
         "name": "projects"
       },
       {
-        "alias": null,
-        "args": (v0/*: any*/),
+        "alias": "sidebarProjects",
+        "args": (v8/*: any*/),
+        "concreteType": "ProjectsConnection",
+        "kind": "LinkedField",
+        "name": "projects",
+        "plural": false,
+        "selections": [
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ProjectsEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Project",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/)
+                ],
+                "storageKey": null
+              },
+              (v7/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": "projects(first:25)"
+      },
+      {
+        "alias": "sidebarProjects",
+        "args": (v8/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "Sidebar_projects",
+        "key": "Sidebar__sidebarProjects",
         "kind": "LinkedHandle",
         "name": "projects"
       }
     ]
   },
   "params": {
-    "cacheID": "70ce6dee7ae104da01d378c585ee61c5",
+    "cacheID": "af671e534a90c4c162fbed2d95d82bc2",
     "id": null,
     "metadata": {},
     "name": "AppsQuery",
     "operationKind": "query",
-    "text": "query AppsQuery {\n  ...ProjectsListFragment\n  ...SidebarFragment\n}\n\nfragment ProjectFragment on Project {\n  owner {\n    uuid\n    id\n  }\n  name\n  description\n  purpose\n  environment\n  isDefault\n  createdAt\n  updatedAt\n  ...ResourcesListFragment\n}\n\nfragment ProjectsListFragment on Query {\n  projects(first: 25) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        ...ProjectFragment\n        __typename\n      }\n      cursor\n    }\n  }\n}\n\nfragment ResourceFragment on ProjectResource {\n  __typename\n  id\n  assignedAt\n  resource {\n    __typename\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  status\n}\n\nfragment ResourcesListFragment on Project {\n  resources(first: 3) {\n    edges {\n      node {\n        id\n        ...ResourceFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment SidebarFragment on Query {\n  projects(first: 25) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        name\n        id\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
+    "text": "query AppsQuery {\n  ...ProjectsListFragment\n  ...SidebarFragment\n}\n\nfragment ProjectFragment on Project {\n  owner {\n    uuid\n    id\n  }\n  name\n  description\n  purpose\n  environment\n  isDefault\n  createdAt\n  updatedAt\n  ...ResourcesListFragment\n}\n\nfragment ProjectsListFragment on Query {\n  projects(first: 3) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        ...ProjectFragment\n        __typename\n      }\n      cursor\n    }\n  }\n}\n\nfragment ResourceFragment on ProjectResource {\n  __typename\n  id\n  assignedAt\n  resource {\n    __typename\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  status\n}\n\nfragment ResourcesListFragment on Project {\n  resources(first: 3) {\n    edges {\n      node {\n        id\n        ...ResourceFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment SidebarFragment on Query {\n  sidebarProjects: projects(first: 25) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
   }
 };
 })();

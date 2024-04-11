@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0d40f54ba499ed9e5067ece96dde268e>>
+ * @generated SignedSource<<6d48a65875b7346a20ab7fccf394f62d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,7 +30,7 @@ var v0 = [
     "name": "after"
   },
   {
-    "defaultValue": 25,
+    "defaultValue": 3,
     "kind": "LocalArgument",
     "name": "first"
   }
@@ -346,16 +346,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "20840630c868879f6f045bc5aecb2584",
+    "cacheID": "a4ce48215fcbeebcbb7b70b3dff90ed2",
     "id": null,
     "metadata": {},
     "name": "ProjectsListPaginationQuery",
     "operationKind": "query",
-    "text": "query ProjectsListPaginationQuery(\n  $after: String = null\n  $first: Int = 25\n) {\n  ...ProjectsListFragment_2HEEH6\n}\n\nfragment ProjectFragment on Project {\n  owner {\n    uuid\n    id\n  }\n  name\n  description\n  purpose\n  environment\n  isDefault\n  createdAt\n  updatedAt\n  ...ResourcesListFragment\n}\n\nfragment ProjectsListFragment_2HEEH6 on Query {\n  projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        ...ProjectFragment\n        __typename\n      }\n      cursor\n    }\n  }\n}\n\nfragment ResourceFragment on ProjectResource {\n  __typename\n  id\n  assignedAt\n  resource {\n    __typename\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  status\n}\n\nfragment ResourcesListFragment on Project {\n  resources(first: 3) {\n    edges {\n      node {\n        id\n        ...ResourceFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query ProjectsListPaginationQuery(\n  $after: String = null\n  $first: Int = 3\n) {\n  ...ProjectsListFragment_2HEEH6\n}\n\nfragment ProjectFragment on Project {\n  owner {\n    uuid\n    id\n  }\n  name\n  description\n  purpose\n  environment\n  isDefault\n  createdAt\n  updatedAt\n  ...ResourcesListFragment\n}\n\nfragment ProjectsListFragment_2HEEH6 on Query {\n  projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        ...ProjectFragment\n        __typename\n      }\n      cursor\n    }\n  }\n}\n\nfragment ResourceFragment on ProjectResource {\n  __typename\n  id\n  assignedAt\n  resource {\n    __typename\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  status\n}\n\nfragment ResourcesListFragment on Project {\n  resources(first: 3) {\n    edges {\n      node {\n        id\n        ...ResourceFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f80a96a84a22c1bc69f0358b73c48175";
+(node as any).hash = "4b41c1b76c617846d26dc7669cafb42b";
 
 export default node;

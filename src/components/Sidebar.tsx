@@ -17,8 +17,8 @@ const SidebarFragment = graphql`
       first: { type: "Int", defaultValue: 25 }
       after: { type: "String", defaultValue: null }
     ) {
-    projects(first: $first, after: $after)
-    @connection(key: "Sidebar_projects") {
+    sidebarProjects: projects(first: $first, after: $after)
+    @connection(key: "Sidebar__sidebarProjects") {
       pageInfo {
         startCursor
         endCursor
@@ -27,6 +27,7 @@ const SidebarFragment = graphql`
       }
       edges {
         node {
+          id
           name
         }
       }
@@ -45,9 +46,9 @@ export default function Sidebar({ query }: Props): React.ReactElement {
   return (
     <>
       {isLoadingNext && <LoadingSpinner />}
-      {[...data.projects.edges].sort((a, b) => a.node.name.localeCompare(b.node.name)).map(({node: project}) => {
+      {[...data.sidebarProjects.edges].sort((a, b) => a.node.name.localeCompare(b.node.name)).map(({node: project}) => {
         return (
-          <a className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300" href="#">
+          <a key={project.id} className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300" href="#">
             <span className="leading-none">{project.name}</span>
           </a>
         )

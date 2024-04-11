@@ -20,7 +20,7 @@ const ProjectsListFragment = graphql`
   fragment ProjectsListFragment on Query
     @refetchable(queryName: "ProjectsListPaginationQuery") 
     @argumentDefinitions(
-      first: { type: "Int", defaultValue: 25 }
+      first: { type: "Int", defaultValue: 3 }
       after: { type: "String", defaultValue: null }
     ) {
     projects(first: $first, after: $after)

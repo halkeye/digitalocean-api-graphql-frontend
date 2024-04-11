@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7914ccb946d02b761ddaf9e16b2ecf02>>
+ * @generated SignedSource<<b9af07a9acae8925791c7a9cf04ef20a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -70,7 +70,7 @@ return {
     "name": "SidebarPaginationQuery",
     "selections": [
       {
-        "alias": null,
+        "alias": "sidebarProjects",
         "args": (v1/*: any*/),
         "concreteType": "ProjectsConnection",
         "kind": "LinkedField",
@@ -136,14 +136,14 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "name",
+                    "name": "id",
                     "storageKey": null
                   },
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "id",
+                    "name": "name",
                     "storageKey": null
                   },
                   {
@@ -170,27 +170,27 @@ return {
         "storageKey": null
       },
       {
-        "alias": null,
+        "alias": "sidebarProjects",
         "args": (v1/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "Sidebar_projects",
+        "key": "Sidebar__sidebarProjects",
         "kind": "LinkedHandle",
         "name": "projects"
       }
     ]
   },
   "params": {
-    "cacheID": "8682cc9fa863eb763eeb081a9bbd4f2a",
+    "cacheID": "8bf2c5bc1fa9060e842e25919ca2db9b",
     "id": null,
     "metadata": {},
     "name": "SidebarPaginationQuery",
     "operationKind": "query",
-    "text": "query SidebarPaginationQuery(\n  $after: String = null\n  $first: Int = 25\n) {\n  ...SidebarFragment_2HEEH6\n}\n\nfragment SidebarFragment_2HEEH6 on Query {\n  projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        name\n        id\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
+    "text": "query SidebarPaginationQuery(\n  $after: String = null\n  $first: Int = 25\n) {\n  ...SidebarFragment_2HEEH6\n}\n\nfragment SidebarFragment_2HEEH6 on Query {\n  sidebarProjects: projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cd533cb5607280ce64abeac85c23805b";
+(node as any).hash = "4d6c9707fa28ad060f6a8ac770fa4dca";
 
 export default node;
