@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bd2f6f34233807e8f4cdd5d4b6eeb3ea>>
+ * @generated SignedSource<<31bd0c2012d10e4ebd76e918efb52e49>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,26 +10,30 @@
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type App_projectsConnection$data = {
-  readonly projectsConnection: {
+export type SidebarFragment$data = {
+  readonly projects: {
     readonly edges: ReadonlyArray<{
-      readonly cursor: string;
       readonly node: {
-        readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"ProjectsListFragment">;
-      } | null;
+        readonly name: string;
+      } | null | undefined;
     }>;
-  } | null;
-  readonly " $fragmentType": "App_projectsConnection";
+    readonly pageInfo: {
+      readonly endCursor: string | null | undefined;
+      readonly hasNextPage: boolean;
+      readonly hasPreviousPage: boolean;
+      readonly startCursor: string | null | undefined;
+    };
+  } | null | undefined;
+  readonly " $fragmentType": "SidebarFragment";
 };
-export type App_projectsConnection$key = {
-  readonly " $data"?: App_projectsConnection$data;
-  readonly " $fragmentSpreads": FragmentRefs<"App_projectsConnection">;
+export type SidebarFragment$key = {
+  readonly " $data"?: SidebarFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SidebarFragment">;
 };
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "projectsConnection"
+  "projects"
 ];
 return {
   "argumentDefinitions": [
@@ -39,16 +43,16 @@ return {
       "name": "after"
     },
     {
-      "defaultValue": 10,
+      "defaultValue": 25,
       "kind": "LocalArgument",
-      "name": "count"
+      "name": "first"
     }
   ],
   "kind": "Fragment",
   "metadata": {
     "connection": [
       {
-        "count": "count",
+        "count": "first",
         "cursor": "after",
         "direction": "forward",
         "path": (v0/*: any*/)
@@ -57,74 +61,26 @@ return {
     "refetch": {
       "connection": {
         "forward": {
-          "count": "count",
+          "count": "first",
           "cursor": "after"
         },
         "backward": null,
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./App_projectsConnectionRefetch.graphql')
+      "operation": require('./SidebarPaginationQuery.graphql')
     }
   },
-  "name": "App_projectsConnection",
+  "name": "SidebarFragment",
   "selections": [
     {
-      "alias": "projectsConnection",
+      "alias": "projects",
       "args": null,
       "concreteType": "ProjectsConnection",
       "kind": "LinkedField",
-      "name": "__App_projectsConnection_connection",
+      "name": "__Sidebar_projects_connection",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ProjectsEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "cursor",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Project",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "ProjectsListFragment"
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "__typename",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
         {
           "alias": null,
           "args": null,
@@ -137,6 +93,13 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "startCursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "endCursor",
               "storageKey": null
             },
@@ -145,6 +108,56 @@ return {
               "args": null,
               "kind": "ScalarField",
               "name": "hasNextPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasPreviousPage",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ProjectsEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Project",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "name",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
               "storageKey": null
             }
           ],
@@ -159,6 +172,6 @@ return {
 };
 })();
 
-(node as any).hash = "ced0b88de670197217eb291c696f65b2";
+(node as any).hash = "cd533cb5607280ce64abeac85c23805b";
 
 export default node;

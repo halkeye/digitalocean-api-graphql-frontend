@@ -27,6 +27,7 @@ export default function Resource({resource}: Props) {
       <div>id: {data.id}</div>
       <div>assignedAt: {data.assignedAt}</div>
       <div>status: {data.status}</div>
+      <div>resource.__typename: {data.resource?.__typename}</div>
     </div>
   );
 }

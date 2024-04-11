@@ -1,10 +1,10 @@
 import * as React from "react";
 import { graphql } from 'relay-runtime';
-import { useLazyLoadQuery, usePaginationFragment } from "react-relay";
+import { usePaginationFragment } from "react-relay";
 import Project from './Project';
 import LoadingSpinner from "./LoadingSpinner";
 // import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
-import type {ProjectsListQuery as ProjectsListQueryType} from './__generated__/ProjectsListQuery.graphql'
+import type {AppsQuery$data, AppsQuery as AppsQueryType} from './__generated__/AppsQuery.graphql'
 import type {ProjectsListFragment$key} from './__generated__/ProjectsListFragment.graphql';
 import Button from "./Button";
 
@@ -12,17 +12,15 @@ import Button from "./Button";
 //
 // import type {ProjectsListQuery as ProjectsListQueryType} from './__generated__/ProjectsListQuery.graphql';
 
-const ProjectsListQuery = graphql`
-  query ProjectsListQuery {
-    ...ProjectsListFragment
-  }
-`;
+type Props = {
+  query: AppsQuery$data
+}
 
 const ProjectsListFragment = graphql`
   fragment ProjectsListFragment on Query
     @refetchable(queryName: "ProjectsListPaginationQuery") 
     @argumentDefinitions(
-      first: { type: "Int", defaultValue: 3 }
+      first: { type: "Int", defaultValue: 25 }
       after: { type: "String", defaultValue: null }
     ) {
     projects(first: $first, after: $after)
@@ -42,8 +40,7 @@ const ProjectsListFragment = graphql`
     }
   }
 `;
-export default function ProjectsList() {
-  const queryData = useLazyLoadQuery<ProjectsListQueryType>(ProjectsListQuery, {});
+export default function ProjectsList({query}: Props) {
   const {
     data,
     loadNext,
@@ -53,7 +50,7 @@ export default function ProjectsList() {
     isLoadingNext,
     isLoadingPrevious,
     refetch, // For refetching connection
-  } = usePaginationFragment<ProjectsListQueryType, ProjectsListFragment$key>(ProjectsListFragment, queryData);
+  } = usePaginationFragment<AppsQueryType, ProjectsListFragment$key>(ProjectsListFragment, query);
   // const onEndReached = () => loadNext(3);
   return (
     <div className="w-full">
