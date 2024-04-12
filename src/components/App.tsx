@@ -1,22 +1,78 @@
 import * as React from "react";
-import RelayEnvironment from "../relay/RelayEnvironment";
 import { graphql } from 'relay-runtime';
 import { RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
 import GithubCorner from 'react-github-corner';
+import RelayEnvironment from "../relay/RelayEnvironment";
+import { BrowserProtocol, queryMiddleware } from 'farce';
+import {
+  createFarceRouter,
+  createRender,
+  makeRouteConfig,
+  Params,
+  Route,
+} from 'found';
+import { Resolver } from 'found-relay';
+
 import ProjectsList from "./ProjectsList";
 import Sidebar from "./Sidebar";
-import type {AppsQuery as AppsQueryType} from './__generated__/AppsQuery.graphql'
+// import type {AppsQuery as AppsQueryType} from './__generated__/AppsQuery.graphql'
+import environment from "../relay/environment";
+
+const EmptyPage = () => <div>Hi</div>;
+const ProjectsPage = () => <div>Projects Page</div>;
+const ProjectPage = () => <div>Single Project Page</div>;
 
 const AppsQuery = graphql`
   query AppsQuery {
-    ...ProjectsListFragment
+    # ...ProjectsListFragment
     ...SidebarFragment
   }
 `;
 
-function App(): React.ReactElement {
-  const query = useLazyLoadQuery<AppsQueryType>(AppsQuery, {});
+const Router = createFarceRouter({
+  historyProtocol: new BrowserProtocol(),
+  historyMiddlewares: [queryMiddleware],
+  routeConfig: makeRouteConfig(
+    <Route path="/" Component={App} query={AppsQuery}>
+      <Route Component={EmptyPage} />
+      <Route path="projects">
+        <Route
+          Component={ProjectsPage}
+          query={graphql`
+            query App_ProjectsPage_Query {
+              ...ProjectsListFragment
+            }
+          `}
+        />
+        <Route
+          path=":id"
+          Component={ProjectPage}
+          query={graphql`
+            query App_ProjectPage_Query($id: ID!) {
+              node(id: $id) {
+                __typename
+              }
+            }
+          `}
+          prepareVariables={(params: Params/*, _routeParams : RouteMatch*/) => {
+            return {
+              ...params,
+              id: `do:project:${params.id}`
+            };
+          }}
+        />  
+      </Route>
+    </Route>
+  ),
 
+  render: createRender({}),
+});
+
+type Props = Record<string, never>
+
+function App(props: React.PropsWithChildren<Props>): React.ReactElement {
+  console.log('props', props);
+  const { children } = props;
   return (
     <div className="flex w-screen h-screen text-gray-700">
       <div className="flex flex-col items-center w-16 pb-4 overflow-auto border-r border-gray-300">
@@ -83,7 +139,7 @@ function App(): React.ReactElement {
           </div>
         </button>
         <div className="flex flex-col flex-grow p-4 overflow-auto">
-          <Sidebar query={query} />
+          <Sidebar query={props} />
         </div>
       </div>
       <div className="flex flex-col flex-grow">
@@ -112,7 +168,8 @@ function App(): React.ReactElement {
         </div>
         <div className="flex-grow p-6 overflow-auto bg-gray-200">
           <div className="w-full gap-6">
-            <ProjectsList query={query} />
+            { children }
+            {/* <ProjectsList query={query} /> */}
           </div>
         </div>
       </div>
@@ -127,11 +184,6 @@ function App(): React.ReactElement {
 // - <Suspense> specifies a fallback in case a child suspends.
 export default function AppRoot() {
   return (
-    <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <React.Suspense fallback={'Loading...'}>
-        <GithubCorner href="https://github.com/halkeye/digitalocean-api-graphql-frontend" />
-        <App />
-      </React.Suspense>
-    </RelayEnvironmentProvider>
+    <Router resolver={new Resolver(environment)} />
   );
 }

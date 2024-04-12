@@ -12,6 +12,7 @@ module.exports = {
   },
   output: {
     filename: "[name].bundle.js",
+    publicPath: process.env.ASSET_PATH || '/',
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -45,6 +46,7 @@ module.exports = {
       'DEBUG': 'false',
       'GRAPHQL_SERVER': '/query',
       'DO_CLIENT_ID': '0a49c568248edfefb704c11cc3ff255e6cc71a1d00b10631bbe0675eb692976b',
+      'ASSET_PATH': '/'
     }),
     new HtmlWebpackPlugin(),
     new MiniCssExtractPlugin(),
@@ -57,6 +59,7 @@ module.exports = {
   devServer: {
     allowedHosts: "all",
     server: 'https',
+    historyApiFallback: { index: '/' },
     static: [
       {
         directory: path.join(__dirname, "dist"),
