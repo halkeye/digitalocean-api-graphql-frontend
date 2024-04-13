@@ -31,8 +31,9 @@ const ResourcesListFragment = graphql`
     }
   }
 `;
-export default function ResourcesList({ project, data: upData }: Props) {
-  console.log({ project, upData})
+export default function ResourcesList(props: Props) {
+  const { data: upData } = props;
+  console.log(props)
   const {
     data,
     loadNext,

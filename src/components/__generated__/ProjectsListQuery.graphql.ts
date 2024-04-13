@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9af07a9acae8925791c7a9cf04ef20a>>
+ * @generated SignedSource<<8353711b0f222cf88353a93365ee4e65>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,54 +10,34 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SidebarPaginationQuery$variables = {
-  after?: string | null | undefined;
-  first?: number | null | undefined;
+export type ProjectsListQuery$variables = Record<PropertyKey, never>;
+export type ProjectsListQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"ProjectsListFragment">;
 };
-export type SidebarPaginationQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"SidebarFragment">;
-};
-export type SidebarPaginationQuery = {
-  response: SidebarPaginationQuery$data;
-  variables: SidebarPaginationQuery$variables;
+export type ProjectsListQuery = {
+  response: ProjectsListQuery$data;
+  variables: ProjectsListQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "after"
-  },
-  {
-    "defaultValue": 25,
-    "kind": "LocalArgument",
-    "name": "first"
-  }
-],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "after",
-    "variableName": "after"
-  },
-  {
-    "kind": "Variable",
+    "kind": "Literal",
     "name": "first",
-    "variableName": "first"
+    "value": 3
   }
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "SidebarPaginationQuery",
+    "name": "ProjectsListQuery",
     "selections": [
       {
-        "args": (v1/*: any*/),
+        "args": null,
         "kind": "FragmentSpread",
-        "name": "SidebarFragment"
+        "name": "ProjectsListFragment"
       }
     ],
     "type": "Query",
@@ -65,13 +45,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "SidebarPaginationQuery",
+    "name": "ProjectsListQuery",
     "selections": [
       {
-        "alias": "sidebarProjects",
-        "args": (v1/*: any*/),
+        "alias": null,
+        "args": (v0/*: any*/),
         "concreteType": "ProjectsConnection",
         "kind": "LinkedField",
         "name": "projects",
@@ -167,30 +147,30 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": null
+        "storageKey": "projects(first:3)"
       },
       {
-        "alias": "sidebarProjects",
-        "args": (v1/*: any*/),
+        "alias": null,
+        "args": (v0/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "Sidebar__sidebarProjects",
+        "key": "ProjectsList_projects",
         "kind": "LinkedHandle",
         "name": "projects"
       }
     ]
   },
   "params": {
-    "cacheID": "8bf2c5bc1fa9060e842e25919ca2db9b",
+    "cacheID": "4ea2fdb2687876fec5079070613c43ce",
     "id": null,
     "metadata": {},
-    "name": "SidebarPaginationQuery",
+    "name": "ProjectsListQuery",
     "operationKind": "query",
-    "text": "query SidebarPaginationQuery(\n  $after: String = null\n  $first: Int = 25\n) {\n  ...SidebarFragment_2HEEH6\n}\n\nfragment SidebarFragment_2HEEH6 on Query {\n  sidebarProjects: projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
+    "text": "query ProjectsListQuery {\n  ...ProjectsListFragment\n}\n\nfragment ProjectsListFragment on Query {\n  projects(first: 3) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4d6c9707fa28ad060f6a8ac770fa4dca";
+(node as any).hash = "f0a6e5e35468472d87deef00ad433d22";
 
 export default node;

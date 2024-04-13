@@ -1,20 +1,18 @@
 import * as React from "react";
 import { graphql } from 'relay-runtime';
-import { usePaginationFragment } from "react-relay";
-import Project from './Project';
+import { PreloadedQuery, usePaginationFragment, usePreloadedQuery } from "react-relay";
+import { Link, useLoaderData } from "react-router-dom"
 import LoadingSpinner from "./LoadingSpinner";
 // import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
-import type {AppsQuery$data, AppsQuery as AppsQueryType} from './__generated__/AppsQuery.graphql'
+import type { ProjectsListQuery as ProjectsListQueryType } from "./__generated__/ProjectsListQuery.graphql";
 import type {ProjectsListFragment$key} from './__generated__/ProjectsListFragment.graphql';
 import Button from "./Button";
 
-// https://relay.dev/docs/api-reference/use-pagination-fragment/
-//
-// import type {ProjectsListQuery as ProjectsListQueryType} from './__generated__/ProjectsListQuery.graphql';
-
-type Props = {
-  query: AppsQuery$data
-}
+export const ProjectsListQuery = graphql`
+  query ProjectsListQuery {
+    ...ProjectsListFragment 
+  }
+`
 
 const ProjectsListFragment = graphql`
   fragment ProjectsListFragment on Query
@@ -34,13 +32,20 @@ const ProjectsListFragment = graphql`
       edges {
         node {
           id
-          ...ProjectFragment
+          name
         }
       }
     }
   }
 `;
-export default function ProjectsList({query}: Props) {
+
+type Props = {
+  queryReference: PreloadedQuery<ProjectsListQueryType>
+}
+export default function ProjectsList() {
+  const props = useLoaderData() as Props;
+  const query = usePreloadedQuery<ProjectsListQueryType>(ProjectsListQuery, props.queryReference);
+  React.useEffect(() => props.queryReference.dispose(), [props.queryReference])
   const {
     data,
     loadNext,
@@ -50,7 +55,7 @@ export default function ProjectsList({query}: Props) {
     isLoadingNext,
     isLoadingPrevious,
     refetch, // For refetching connection
-  } = usePaginationFragment<AppsQueryType, ProjectsListFragment$key>(ProjectsListFragment, query);
+  } = usePaginationFragment<ProjectsListQueryType, ProjectsListFragment$key>(ProjectsListFragment, query);
   // const onEndReached = () => loadNext(3);
   return (
     <div className="w-full">
@@ -63,7 +68,7 @@ export default function ProjectsList({query}: Props) {
       <div className="grid grid-cols-3 gap-4">
         {data.projects.edges.map(({ node: project}) => (
           <div className="w-full" key={project.id} style={{ borderBottom: '1px solid black' }}>
-            <Project project={project} />
+            <Link to={`/projects/${project.id}`}>{project.name}</Link>
           </div>
         ))}
         {/* <InfiniteScrollTrigger
@@ -75,4 +80,5 @@ export default function ProjectsList({query}: Props) {
     </div>
   );
 }
+
 

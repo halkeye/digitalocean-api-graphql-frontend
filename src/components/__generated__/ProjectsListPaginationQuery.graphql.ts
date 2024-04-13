@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6d48a65875b7346a20ab7fccf394f62d>>
+ * @generated SignedSource<<b01b8e47478cefa43c87e97bf055897c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -46,49 +46,7 @@ v1 = [
     "name": "first",
     "variableName": "first"
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "endCursor",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "hasNextPage",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v5 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 3
-  }
-],
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "cursor",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -134,8 +92,20 @@ return {
                 "name": "startCursor",
                 "storageKey": null
               },
-              (v2/*: any*/),
-              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "endCursor",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -162,24 +132,11 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "Team",
-                    "kind": "LinkedField",
-                    "name": "owner",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "uuid",
-                        "storageKey": null
-                      },
-                      (v4/*: any*/)
-                    ],
+                    "kind": "ScalarField",
+                    "name": "id",
                     "storageKey": null
                   },
                   {
@@ -193,141 +150,19 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "description",
+                    "name": "__typename",
                     "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "purpose",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "environment",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "isDefault",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "createdAt",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "updatedAt",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": (v5/*: any*/),
-                    "concreteType": "ProjectResourcesConnection",
-                    "kind": "LinkedField",
-                    "name": "resources",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ProjectResourcesEdge",
-                        "kind": "LinkedField",
-                        "name": "edges",
-                        "plural": true,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "ProjectResource",
-                            "kind": "LinkedField",
-                            "name": "node",
-                            "plural": false,
-                            "selections": [
-                              (v4/*: any*/),
-                              (v6/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "assignedAt",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": null,
-                                "kind": "LinkedField",
-                                "name": "resource",
-                                "plural": false,
-                                "selections": [
-                                  (v6/*: any*/),
-                                  {
-                                    "kind": "InlineFragment",
-                                    "selections": [
-                                      (v4/*: any*/)
-                                    ],
-                                    "type": "Node",
-                                    "abstractKey": "__isNode"
-                                  }
-                                ],
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "status",
-                                "storageKey": null
-                              }
-                            ],
-                            "storageKey": null
-                          },
-                          (v7/*: any*/)
-                        ],
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "PageInfo",
-                        "kind": "LinkedField",
-                        "name": "pageInfo",
-                        "plural": false,
-                        "selections": [
-                          (v2/*: any*/),
-                          (v3/*: any*/)
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": "resources(first:3)"
-                  },
-                  {
-                    "alias": null,
-                    "args": (v5/*: any*/),
-                    "filters": null,
-                    "handle": "connection",
-                    "key": "ResourcesList__resources",
-                    "kind": "LinkedHandle",
-                    "name": "resources"
-                  },
-                  (v6/*: any*/)
+                  }
                 ],
                 "storageKey": null
               },
-              (v7/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
+                "storageKey": null
+              }
             ],
             "storageKey": null
           }
@@ -346,16 +181,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a4ce48215fcbeebcbb7b70b3dff90ed2",
+    "cacheID": "3b683c47cf8cec47a905e175ab797f71",
     "id": null,
     "metadata": {},
     "name": "ProjectsListPaginationQuery",
     "operationKind": "query",
-    "text": "query ProjectsListPaginationQuery(\n  $after: String = null\n  $first: Int = 3\n) {\n  ...ProjectsListFragment_2HEEH6\n}\n\nfragment ProjectFragment on Project {\n  owner {\n    uuid\n    id\n  }\n  name\n  description\n  purpose\n  environment\n  isDefault\n  createdAt\n  updatedAt\n  ...ResourcesListFragment\n}\n\nfragment ProjectsListFragment_2HEEH6 on Query {\n  projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        ...ProjectFragment\n        __typename\n      }\n      cursor\n    }\n  }\n}\n\nfragment ResourceFragment on ProjectResource {\n  __typename\n  id\n  assignedAt\n  resource {\n    __typename\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  status\n}\n\nfragment ResourcesListFragment on Project {\n  resources(first: 3) {\n    edges {\n      node {\n        id\n        ...ResourceFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query ProjectsListPaginationQuery(\n  $after: String = null\n  $first: Int = 3\n) {\n  ...ProjectsListFragment_2HEEH6\n}\n\nfragment ProjectsListFragment_2HEEH6 on Query {\n  projects(first: $first, after: $after) {\n    pageInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4b41c1b76c617846d26dc7669cafb42b";
+(node as any).hash = "ba9485c375cb101ec9f359391590ed87";
 
 export default node;

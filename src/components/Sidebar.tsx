@@ -1,59 +1,47 @@
 import * as React from "react";
-import type {AppsQuery$data, AppsQuery as AppsQueryType} from './__generated__/AppsQuery.graphql'
+import { NavLink, useLoaderData } from "react-router-dom";
 import { graphql } from 'relay-runtime';
-import { usePaginationFragment } from "react-relay";
-import { SidebarFragment$key } from "./__generated__/SidebarFragment.graphql";
-import LoadingSpinner from "./LoadingSpinner";
-import Button from "./Button";
+import { PreloadedQuery, ReactRelayContext, usePreloadedQuery } from "react-relay";
+import { SidebarQuery as SidebarQueryType } from './__generated__/SidebarQuery.graphql';
 
-type Props = {
-  query: AppsQuery$data
-}
-
-const SidebarFragment = graphql`
-  fragment SidebarFragment on Query
-    @refetchable(queryName: "SidebarPaginationQuery") 
-    @argumentDefinitions(
-      first: { type: "Int", defaultValue: 25 }
-      after: { type: "String", defaultValue: null }
-    ) {
-    sidebarProjects: projects(first: $first, after: $after)
-    @connection(key: "Sidebar__sidebarProjects") {
-      pageInfo {
-        startCursor
-        endCursor
-        hasNextPage
-        hasPreviousPage
-      }
+export const SidebarQuery = graphql`
+  query SidebarQuery {
+    projects(first: 100) {
       edges {
         node {
-          id
           name
+          id
         }
       }
     }
   }
-`;
+`
 
-export default function Sidebar({ query }: Props): React.ReactElement {
-  const {
-    data,
-    loadNext,
-    hasNext,
-    isLoadingNext,
-  } = usePaginationFragment<AppsQueryType, SidebarFragment$key>(SidebarFragment, query);
+type Props = {
+  queryReference: PreloadedQuery<SidebarQueryType>
+};
 
-  return (
-    <>
-      {isLoadingNext && <LoadingSpinner />}
-      {[...data.sidebarProjects.edges].sort((a, b) => a.node.name.localeCompare(b.node.name)).map(({node: project}) => {
-        return (
-          <a key={project.id} className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300" href="#">
-            <span className="leading-none">{project.name}</span>
-          </a>
-        )
-      })}
-      {hasNext && <div><Button onClick={() => loadNext(15)}>Load more projects</Button></div>}
-    </>
-  );
+export default function Sidebar(): React.ReactElement {
+  const props = useLoaderData() as Props;
+  const data = usePreloadedQuery<SidebarQueryType>(SidebarQuery, props.queryReference);
+  // React.useEffect(() => props.queryReference.dispose(), [props.queryReference])
+  // const data = { projects: { edges: [
+  //   { node: { name: 'Gavin1', id: 'do:project:e69223b5-df91-42b1-b6dc-f60669f4b636' } },
+  //   { node: { name: 'Gavin2', id: 'do:project:c1f72229-f6c5-44ef-82c8-269635719315' } }
+  // ] } };
+  return <>
+    {[...data.projects.edges].sort((a, b) => a.node.name.localeCompare(b.node.name)).map(({node: project}) => {
+      return (
+        <NavLink 
+          key={project.id}
+          className={({ isActive }) => {
+            return `flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300 ${isActive ? 'bg-blue-300' : ''}`
+          }}
+          to={`/projects/${project.id}`}
+        >
+          <span className="leading-none">{project.name}</span>
+        </NavLink>
+      )
+    })}
+  </>;
 }

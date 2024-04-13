@@ -1,43 +1,52 @@
 import * as React from "react";
 import { graphql } from 'relay-runtime';
-import { useFragment } from "react-relay";
-import type {ProjectFragment$key} from './__generated__/ProjectFragment.graphql';
-import ResourcesList from "./ResourcesList";
+import { PreloadedQuery, usePreloadedQuery } from "react-relay";
+import { useLoaderData } from "react-router-dom"
+import type { ProjectQuery as ProjectQueryType } from "./__generated__/ProjectQuery.graphql";
+
+// import ResourcesList from "./ResourcesList";
+
+export const ProjectQuery = graphql`
+  query ProjectQuery($id: ID!) {
+    node(id: $id) {
+      ...on Project {
+        owner {
+          uuid
+        }
+        name
+        description
+        purpose
+        environment
+        isDefault
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`
 
 type Props = {
-  project: ProjectFragment$key;
+  queryReference: PreloadedQuery<ProjectQueryType>
 };
 
-const ProjectFragment = graphql`
-  fragment ProjectFragment on Project {
-    owner {
-      uuid
-    }
-    name
-    description
-    purpose
-    environment
-    isDefault
-    createdAt
-    updatedAt
-    ...ResourcesListFragment
-  }
-`;
-
-export default function Project({project}: Props) {
-  const data = useFragment<ProjectFragment$key>(ProjectFragment, project);
+export default function Project() {
+  const props = useLoaderData() as Props;
+  const data = usePreloadedQuery<ProjectQueryType>(ProjectQuery, props.queryReference);
+  // React.useEffect(() => props.queryReference.dispose(), [props.queryReference])
   return (
-    <div className="col-span-1 bg-white border border-gray-300">
-      <div>Owner: {data.owner.uuid}</div>
-      <div>Name: {data.name}</div>
-      <div>Description: {data.description}</div>
-      <div>Purpose: {data.purpose}</div>
-      <div>Environment: {data.environment}</div>
-      <div>Is Default: {data.isDefault ? "true" : "false"}</div>
-      <div>Created At: {data.createdAt}</div>
-      <div>Updated At: {data.updatedAt}</div>
-      <ResourcesList data={data} project={project} />
-    </div>
+    <React.Suspense>
+      <div className="col-span-1 bg-white border border-gray-300">
+        <div>Owner: {data.node.owner.uuid}</div>
+        <div>Name: {data.node.name}</div>
+        <div>Description: {data.node.description}</div>
+        <div>Purpose: {data.node.purpose}</div>
+        <div>Environment: {data.node.environment}</div>
+        <div>Is Default: {data.node.isDefault ? "true" : "false"}</div>
+        <div>Created At: {data.node.createdAt}</div>
+        <div>Updated At: {data.node.updatedAt}</div>
+        {/* <ResourcesList data={data} project={query} /> */}
+      </div>
+    </React.Suspense>
   );
 }
 

@@ -1,10 +1,14 @@
+// @ts-check
 const path = require("path");
 const fs = require('fs');
 const {EnvironmentPlugin} = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require('webpack');
+require('webpack-dev-server')
 
+/** @type{webpack.Configuration} */
 module.exports = {
   mode: "development",
   entry: {
@@ -14,6 +18,7 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -73,7 +78,9 @@ module.exports = {
       }
     ],
     port: 3000,
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/index.html',
+    }
   },
   devtool: "inline-source-map",
 };
