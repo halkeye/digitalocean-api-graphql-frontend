@@ -1,65 +1,75 @@
 import * as React from "react";
 import { graphql } from 'relay-runtime';
-import { usePaginationFragment } from "react-relay";
-import LoadingSpinner from "./LoadingSpinner";
-import Button from "./Button";
-import Resource from "./Resource";
-import { ProjectsListQuery } from "./__generated__/ProjectsListQuery.graphql";
-import { ResourcesListFragment$key } from "./__generated__/ResourcesListFragment.graphql";
-import { ProjectFragment$data, ProjectFragment$key } from "./__generated__/ProjectFragment.graphql";
+import { useFragment } from "react-relay";
+import { ResourcesListFragment$data, ResourcesListFragment$key } from "./__generated__/ResourcesListFragment.graphql";
+import { ProjectFragment$key } from "./__generated__/ProjectFragment.graphql";
 
 type Props = {
   project: ProjectFragment$key;
-  data: ProjectFragment$data;
 }
 
 const ResourcesListFragment = graphql`
-  fragment ResourcesListFragment on Project
-    @refetchable(queryName: "ResourcesListPaginationQuery") 
-    @argumentDefinitions(
-      first: { type: "Int", defaultValue: 3 }
-      after: { type: "ID", defaultValue: null }
-    ) {
-    resources(first: $first, after: $after)
-    @connection(key: "ResourcesList__resources") {
+  fragment ResourcesListFragment on Project {
+    resources(first: 100) {
       edges {
         node {
+          status
           id
-          ...ResourceFragment
+          resource {
+            id
+            name
+            __typename
+          }
         }
       }
     }
   }
 `;
-export default function ResourcesList(props: Props) {
-  const { data: upData } = props;
-  console.log(props)
-  const {
-    data,
-    loadNext,
-    loadPrevious,
-    hasNext,
-    hasPrevious,
-    isLoadingNext,
-    isLoadingPrevious,
-    refetch, // For refetching connection
-  } = usePaginationFragment<ProjectsListQuery, ResourcesListFragment$key>(ResourcesListFragment, upData);
+
+const Status = ({ status }: { status: string}) => {
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-3 gap-4">
-        {(isLoadingNext || isLoadingPrevious) && <LoadingSpinner />}
-        {hasNext && <div><Button onClick={() => loadNext(3)}>Load more Resources</Button></div>}
-        <div><Button onClick={() => refetch({})}>Refresh</Button></div>
-        {hasPrevious && <div><Button onClick={() => loadPrevious(3)}>Load previous Resources</Button></div>}
-      </div>
-      <div className="grid grid-cols-3 gap-4">
-        {data.resources.edges.map(({ node: resource}) => (
-          <div className="w-full" key={resource.id} style={{ borderBottom: '1px solid black' }}>
-            <Resource resource={resource} />
+    <button type="button" className="rounded-full px-4 mr-2 bg-green-600 text-white p-2 leading-none flex items-center">
+      {status}
+    </button>
+  );
+}
+
+
+export default function ResourcesList(props: Props) {
+  const data = useFragment<ResourcesListFragment$key>(ResourcesListFragment, props.project);
+
+  const resourceByType = data.resources.edges.filter(
+    edge => Boolean(edge.node)
+  ).reduce((prev, edge) => {
+    prev[edge.node.resource?.__typename] ||= []
+    prev[edge.node.resource?.__typename].push(edge.node)
+    return prev
+  },
+  {} as Record<string, Array<ResourcesListFragment$data['resources']['edges'][0]['node']>>
+  );
+
+  return (
+    <>
+      {Object.entries(resourceByType).map(([__typename, resources]) => (
+        <div key={__typename}>
+          <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">{__typename} ({resources.length})</h2>
+          <div className="border-2">
+            <table className="table-auto">
+              <tbody>
+                {resources.map(resource => {
+                  return (
+                    <tr key={resource.resource?.id}>
+                      <td><Status status={resource.status} /></td>
+                      <td>{resource.resource?.name}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      ))}
+    </>
   );
 }
 

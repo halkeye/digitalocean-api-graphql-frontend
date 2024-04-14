@@ -14,6 +14,8 @@ type Account implements Node {
   status: String!
   "Account UUID"
   uuid: String!
+  "Team"
+  team: Team!
 }
 "Account Limits"
 type AccountLimits {
@@ -22,21 +24,22 @@ type AccountLimits {
   "How many volumes can you have at once"
   volumeLimit: Int!
 }
-type App implements Node {
+type App implements Node & Resource {
   id: ID!
+  name: String!
   owner: Team!
   lastDeploymentActiveAt: Time
   defaultIngress: String
-  createdAt: Time
+  createdAt: Time!
   updatedAt: Time
 }
-type Domain implements Node {
+type Domain implements Node & Resource {
   id: ID!
   name: String!
-  TTL: Int!
-  ZoneFile: String
+  ttl: Int!
+  zoneFile: String
 }
-type Droplet implements Node {
+type Droplet implements Node & Resource {
   id: ID!
   name: String!
   memory: Int
@@ -61,15 +64,15 @@ type PageInfo {
 type Project implements Node {
   "The id of the account"
   id: ID!
-  owner: Team!
   name: String!
+  owner: Team!
   description: String
   purpose: String!
   environment: String!
   isDefault: Boolean!
-  createdAt: Time
+  createdAt: Time!
   updatedAt: Time
-  "All projects"
+  "Project Resources"
   resources(
     "Page Size"
     first: Int = 20,
@@ -80,7 +83,7 @@ type Project implements Node {
 type ProjectResource {
   id: ID!
   assignedAt: Time!
-  resource: Resource
+  resource: Resource!
   status: String!
 }
 "ProjectResources Connection"
@@ -120,11 +123,17 @@ type Query {
   ): Node
   "All projects"
   projects(
-    "Page Size"
+    "Num after the after cursor"
     first: Int = 20,
-    "Cursor ID"
-    after: String
+    "After Cursor"
+    after: String,
+    "Num before the before cursor"
+    last: Int = 20,
+    "Before Cursor ID"
+    before: String
   ): ProjectsConnection
+  "Account Information"
+  account: Account!
 }
 type Region implements Node {
   id: ID!
@@ -142,15 +151,20 @@ type Team implements Node {
   "Team UUID"
   uuid: UUID!
 }
-type Volume implements Node {
+type Volume implements Node & Resource {
   id: ID!
+  name: String!
+  description: String!
 }
 "An object with an ID"
 interface Node {
   "The id of the object."
   id: ID!
 }
-union Resource = Droplet | App | Domain | Volume
+interface Resource {
+  id: ID!
+  name: String!
+}
 "The @defer directive may be specified on a fragment spread to imply de-prioritization, that causes the fragment to be omitted in the initial response, and delivered as a subsequent response afterward. A query with @defer directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred delivered in a subsequent response. @include and @skip take precedence over @defer."
 directive @defer(if: Boolean = true, label: String) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 directive @goField(forceResolver: Boolean, name: String, omittable: Boolean) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION

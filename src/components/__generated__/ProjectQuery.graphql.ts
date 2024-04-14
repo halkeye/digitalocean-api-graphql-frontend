@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0b4687763961d8edf7ca5115712b0d43>>
+ * @generated SignedSource<<e9d758e02deee1f9b232d82c71b3b06f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,21 +9,17 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type ProjectQuery$variables = {
   id: string;
 };
 export type ProjectQuery$data = {
   readonly node: {
-    readonly createdAt?: any | null | undefined;
+    readonly createdAt?: string;
     readonly description?: string | null | undefined;
-    readonly environment?: string;
     readonly isDefault?: boolean;
     readonly name?: string;
-    readonly owner?: {
-      readonly uuid: any;
-    };
-    readonly purpose?: string;
-    readonly updatedAt?: any | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"ResourcesListFragment">;
   } | null | undefined;
 };
 export type ProjectQuery = {
@@ -50,59 +46,38 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "uuid",
+  "name": "name",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "description",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
+  "name": "isDefault",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "purpose",
+  "name": "createdAt",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "environment",
+  "name": "__typename",
   "storageKey": null
 },
 v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "isDefault",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "createdAt",
-  "storageKey": null
-},
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "updatedAt",
-  "storageKey": null
-},
-v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -127,25 +102,15 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Team",
-                "kind": "LinkedField",
-                "name": "owner",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/)
-                ],
-                "storageKey": null
-              },
+              (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/)
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "ResourcesListFragment"
+              }
             ],
             "type": "Project",
             "abstractKey": null
@@ -171,57 +136,96 @@ return {
         "name": "node",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "__typename",
-            "storageKey": null
-          },
+          (v6/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Team",
-                "kind": "LinkedField",
-                "name": "owner",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/),
-                  (v10/*: any*/)
-                ],
-                "storageKey": null
-              },
+              (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/)
+              {
+                "alias": null,
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "name": "first",
+                    "value": 100
+                  }
+                ],
+                "concreteType": "ProjectResourcesConnection",
+                "kind": "LinkedField",
+                "name": "resources",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ProjectResourcesEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ProjectResource",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "status",
+                            "storageKey": null
+                          },
+                          (v7/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": null,
+                            "kind": "LinkedField",
+                            "name": "resource",
+                            "plural": false,
+                            "selections": [
+                              (v7/*: any*/),
+                              (v2/*: any*/),
+                              (v6/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": "resources(first:100)"
+              }
             ],
             "type": "Project",
             "abstractKey": null
           },
-          (v10/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "5a2f801e9ac0c6294af4871c23eb552b",
+    "cacheID": "b9d5bcaefd3cb60a6667198624f8be7d",
     "id": null,
     "metadata": {},
     "name": "ProjectQuery",
     "operationKind": "query",
-    "text": "query ProjectQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Project {\n      owner {\n        uuid\n        id\n      }\n      name\n      description\n      purpose\n      environment\n      isDefault\n      createdAt\n      updatedAt\n    }\n    id\n  }\n}\n"
+    "text": "query ProjectQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Project {\n      name\n      description\n      isDefault\n      createdAt\n      ...ResourcesListFragment\n    }\n    id\n  }\n}\n\nfragment ResourcesListFragment on Project {\n  resources(first: 100) {\n    edges {\n      node {\n        status\n        id\n        resource {\n          id\n          name\n          __typename\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c97889d061e06c63c033d04b915a1e48";
+(node as any).hash = "2dd8e1f0b460784010f2e8086b509748";
 
 export default node;

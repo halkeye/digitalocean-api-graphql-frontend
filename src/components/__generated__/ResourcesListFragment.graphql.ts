@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<26344f7b4ed8c739c938e9d545952d3c>>
+ * @generated SignedSource<<b8c963ff6cbab676c96f648b0837a7be>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ResourcesListFragment$data = {
-  readonly id: string;
   readonly resources: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"ResourceFragment">;
+        readonly resource: {
+          readonly __typename: string;
+          readonly id: string;
+          readonly name: string;
+        };
+        readonly status: string;
       } | null | undefined;
     }>;
   } | null | undefined;
@@ -28,10 +32,7 @@ export type ResourcesListFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
-  "resources"
-],
-v1 = {
+var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -39,55 +40,23 @@ v1 = {
   "storageKey": null
 };
 return {
-  "argumentDefinitions": [
-    {
-      "defaultValue": null,
-      "kind": "LocalArgument",
-      "name": "after"
-    },
-    {
-      "defaultValue": 3,
-      "kind": "LocalArgument",
-      "name": "first"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
-  "metadata": {
-    "connection": [
-      {
-        "count": "first",
-        "cursor": "after",
-        "direction": "forward",
-        "path": (v0/*: any*/)
-      }
-    ],
-    "refetch": {
-      "connection": {
-        "forward": {
-          "count": "first",
-          "cursor": "after"
-        },
-        "backward": null,
-        "path": (v0/*: any*/)
-      },
-      "fragmentPathInResult": [
-        "node"
-      ],
-      "operation": require('./ResourcesListPaginationQuery.graphql'),
-      "identifierInfo": {
-        "identifierField": "id",
-        "identifierQueryVariableName": "id"
-      }
-    }
-  },
+  "metadata": null,
   "name": "ResourcesListFragment",
   "selections": [
     {
-      "alias": "resources",
-      "args": null,
+      "alias": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "first",
+          "value": 100
+        }
+      ],
       "concreteType": "ProjectResourcesConnection",
       "kind": "LinkedField",
-      "name": "__ResourcesList__resources_connection",
+      "name": "resources",
       "plural": false,
       "selections": [
         {
@@ -106,67 +75,55 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                (v1/*: any*/),
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "ResourceFragment"
-                },
                 {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "__typename",
+                  "name": "status",
+                  "storageKey": null
+                },
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": null,
+                  "kind": "LinkedField",
+                  "name": "resource",
+                  "plural": false,
+                  "selections": [
+                    (v0/*: any*/),
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "name",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "__typename",
+                      "storageKey": null
+                    }
+                  ],
                   "storageKey": null
                 }
               ],
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "cursor",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "PageInfo",
-          "kind": "LinkedField",
-          "name": "pageInfo",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "endCursor",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "hasNextPage",
               "storageKey": null
             }
           ],
           "storageKey": null
         }
       ],
-      "storageKey": null
-    },
-    (v1/*: any*/)
+      "storageKey": "resources(first:100)"
+    }
   ],
   "type": "Project",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "0d44fe76179e25c8748465a6de2900a0";
+(node as any).hash = "cfb101544a4dc80aff278aae767e2829";
 
 export default node;
